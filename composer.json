@@ -1,0 +1,32 @@
+{
+    "name": "another-scraper/php",
+    "type": "standard",
+    "description": "Another scraper build in PHP",
+    "homepage": "https://github.com/",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Another\\": "src/",
+            "Another\\Database": "src/Database/",
+            "Another\\Engines": "src/Engines/",
+            "Another\\Kernel": "src/Kernel/",
+            "Another\\Scraper": "src/Scraper/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Another\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin"
+    ],
+    "require": {
+        "illuminate/events": "^5.8",
+        "illuminate/database": "^5.8",
+        "illuminate/container": "^5.8",
+        "imangazaliev/didom": "^1.14"
+    },
+    "require-dev": {
+    }
+}
