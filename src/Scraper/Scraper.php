@@ -1,66 +1,115 @@
 <?php
 
+/**
+ * Scraper
+ * php version 7.3.10
+ * 
+ * @category Scraper
+ * @package  AnotherScraper
+ * @author   Felipe <medina.xavier.felipe@gmail.com>
+ * @license  https://github.com/Muramasah/another-scraper-php/blob/master/LICENSE MIT
+ * @link     https://github.com/Muramasah/another-scraper-php/
+ */
+
 namespace Another\Scraper;
 
-use Another\State\State;
+use Another\Engines\ScraperEngine;
+use Another\Models\Source;
 
+/**
+ * Handles the interaction between the different abstractions made to handle
+ * the scraping process.
+ * php version 7.3.10
+ * 
+ * @category Scraper
+ * @package  AnotherScraper
+ * @author   Felipe <medina.xavier.felipe@gmail.com>
+ * @license  https://github.com/Muramasah/another-scraper-php/blob/master/LICENSE MIT
+ * @link     https://github.com/Muramasah/another-scraper-php/
+ */
 class Scraper
 {
-  const ENGINE = 'engine';
-  const EXTRACTORS = 'extractors';
-  const HTML = 'html';
+    private $_engine, $_extractors, $_source;
+    /**
+     * Loads the objects to be used to handle the scraping process into private
+     * properties.
+     * 
+     * @param ScraperEngine|null $engine     Engine class which will handle
+     *                                       the how the scraping is done.
+     * @param Source|null        $source     Model with the direction and
+     *                                       content of an url.
+     * @param array|null         $extractors Array of extractors for a
+     *                                       specific data, each key will be a
+     *                                       key on the json response.
+     */
+    public function __construct(
+        ScraperEngine $engine = null,
+        Source $source = null,
+        array $extractors = null
+    ) {
+        if ($extractors) {
+            $this->loadExtractors($extractors);
+        }
 
-  private $state;
+        if ($engine) {
+            $this->loadEngine($engine);
+        }
 
-  public function __construct($engine, array $extractors = null, $html = null)
-  {
-    $this->state = new State();
-
-    if ($extractors) {
-      $this->loadExtractors($extractors);
+        if ($source) {
+            $this->loadSource($source);
+        }
     }
-
-    if ($engine) {
-      $this->loadEngine($engine);
+    /**
+     * Uses the engine to scrap the source as is specified in the extractors.
+     * 
+     * @return array Data extracted from the source.
+     */
+    public function scrapLoadedSource()
+    {
+        return $this->_engine->extractData($this->source, $this->_extractors);
     }
+    /**
+     * Loads the scraper engine.
+     * 
+     * @param ScraperEngine $engine Engine class which will handle the how
+     *                              the scraping is done.
+     * 
+     * @return Scraper              Returns the scraper instance, allowing to
+     *                              call methods in chain.
+     */
+    public function loadEngine(ScraperEngine $engine)
+    {
+        $this->_engine = new $engine();
 
-    if ($html) {
-      $this->loadHtml($html);
+        return $this;
     }
-  }
+    /**
+     * Loads the scraper extractors.
+     * 
+     * @param array $extractors Array of extractors for a specific data, each
+     *                          key will be a key on the json response.
+     * 
+     * @return Scraper          Returns the scraper instance, allowing to call
+     *                          methods in chain.
+     */
+    public function loadExtractors(array $extractors)
+    {
+        $this->_extractors = $extractors;
 
-  function scrapLoadedHtml()
-  {
-    return $this->scrap($this->state->get(self::HTML));
-  }
+        return $this;
+    }
+    /**
+     * Loads the scraper extractors.
+     * 
+     * @param Source $source Model with the direction and content of an url.
+     * 
+     * @return Scraper       Returns the scraper instance, allowing to call
+     *                       methods in chain.
+     */
+    public function loadSource(Source $source)
+    {
+        $this->_source = $source;
 
-  function scrap($html)
-  {
-    $extractors = $this->state->get(self::EXTRACTORS);
-    $engine = $this->state->get(self::ENGINE);
-    $extract = $engine->start($extractors);
-
-    return $extract($html);
-  }
-
-  function loadEngine($engine)
-  {
-    $this->state->update([self::ENGINE => new $engine()]);
-
-    return $this;
-  }
-
-  function loadExtractors($extractors)
-  {
-    $this->state->update([self::EXTRACTORS => $extractors]);
-
-    return $this;
-  }
-
-  function loadHtml($html)
-  {
-    $this->state->update([self::HTML => $html]);
-
-    return $this;
-  }
+        return $this;
+    }
 }

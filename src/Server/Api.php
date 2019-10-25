@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Interface to handle the scraper and crawler using http requests and responses.
+ * Api
  * php version 7.3.10
  * 
- * @category Core
- * @package  Another
+ * @category Server
+ * @package  AnotherScraper
  * @author   Felipe <medina.xavier.felipe@gmail.com>
  * @license  https://github.com/Muramasah/another-scraper-php/blob/master/LICENSE MIT
  * @link     https://github.com/Muramasah/another-scraper-php/
@@ -20,7 +20,8 @@ use Another\Scraper\Scraper;
 use Klein\Klein;
 
 /**
- * Handles server and app initialization 
+ * Handles server and app initialization. Interface to handle the scraper and
+ * crawler using http requests and responses.
  * php version 7.3.10
  * 
  * @category Core

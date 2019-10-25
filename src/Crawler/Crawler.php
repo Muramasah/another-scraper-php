@@ -20,7 +20,7 @@ use GuzzleHttp\Client;
  * Handles server requests and transform them into Source models
  * php version 7.3.10
  * 
- * @category Server
+ * @category Crawler
  * @package  AnotherScraper
  * @author   Felipe <medina.xavier.felipe@gmail.com>
  * @license  https://github.com/Muramasah/another-scraper-php/blob/master/LICENSE MIT

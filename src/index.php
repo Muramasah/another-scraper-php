@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Runs the API server
+ * Runs the Scraper API server
  * php version 7.3.10
  * 
  * @category Core
- * @package  Another
+ * @package  AnotherScraper
  * @author   Felipe <medina.xavier.felipe@gmail.com>
  * @license  https://github.com/Muramasah/another-scraper-php/blob/master/LICENSE MIT
  * @link     https://github.com/Muramasah/another-scraper-php
