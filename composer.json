@@ -6,11 +6,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Another\\": "src/",
-            "Another\\Database": "src/Database/",
-            "Another\\Engines": "src/Engines/",
-            "Another\\Kernel": "src/Kernel/",
-            "Another\\Scraper": "src/Scraper/"
+            "Another\\": "src/"
         }
     },
     "autoload-dev": {
@@ -25,8 +21,10 @@
         "illuminate/events": "^5.8",
         "illuminate/database": "^5.8",
         "illuminate/container": "^5.8",
-        "imangazaliev/didom": "^1.14"
+        "imangazaliev/didom": "^1.14",
+        "klein/klein": "^2.1"
     },
     "require-dev": {
+        "squizlabs/php_codesniffer": "^3.5"
     }
 }
