@@ -15,6 +15,7 @@ namespace Another\Server;
 
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Events\Dispatcher;
 
 /**
@@ -61,5 +62,27 @@ class Database
         $manager->bootEloquent();
 
         $this->_handler = $manager;
+        // create sources table if there is no one.
+        if (!Manager::schema()->hasTable('sources')) {
+            $this->_createTables();
+        }
+    }
+    /**
+     * Creates sources table.
+     * 
+     * @return void.
+     */
+    private function _createTables()
+    {
+        Manager::schema()->create(
+            'sources',
+            function (Blueprint $sources) {
+                $sources->increments('id');
+                $sources->string('url');
+                $sources->string('children');
+                $sources->mediumText('file');
+                $sources->timestamps();
+            }
+        );
     }
 }
