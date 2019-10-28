@@ -10,6 +10,7 @@ This is service which allow us to interact with a scraper and a crawler using HT
 
 
 # Installation
+You need a SQL server running, edit [src/Server/Database.php](https://github.com/Muramasah/another-scraper-php/blob/master/src/Server/Database.php) to add your configuration.
 
 With [Composer](https://getcomposer.org/):
 
@@ -29,12 +30,21 @@ The crawler has not real crawling features yet, but encapsulates the logic which
 ## Engines
 Actualy we only have a DOM engine, which works using css selectors to pick data from an html.
 
+## Extractors
+The extractor tells to the engine how we will extract something, and what name we want for this data. So, a extractor is a configuration string to extract or scrap a named data. 
+
 # Usage
 
-After the installation we need to run a php server, which wil be able to respond to:
+After the installation we need to run a php server like
+
+```bash
+php -S localhost:8000
+```
+
+which wil be able to respond to:
 
 ## POST
-##  /Scrap
+##  /scrap
 ### source
 Url to the source which will be scraped.
 
@@ -42,4 +52,24 @@ Url to the source which will be scraped.
 These are the processors which allow us to configurate how the data will be extracted. Actually there is only one, the DOM [engine](#Engines).
 
 ### extractors
-JSON array with the configuration to scrap individualized data with titles/keys.
+JSON with the configuration to scrap individualized data with titles/keys.
+
+### Example
+Body from a post request to http://localhost:8000/scrap
+```json
+{
+  "source": "https://www.imdb.com/title/tt1560220",
+  "extractors": {
+    "title":".originalTitle::text",
+    "description":".summary_text"
+    }
+}
+```
+
+Expected response:
+```json
+{
+    "title": "Zombieland: Double Tap",
+    "description": "Columbus, Tallahassee, Wichita, and Little Rock move to the American heartland as they face off against evolved zombies, fellow survivors, and the growing pains of the snarky makeshift family."
+}
+```
