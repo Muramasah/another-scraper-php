@@ -49,7 +49,7 @@ class DomEngine implements ScraperEngine
 
         foreach ($extractors as $name => $selector) {
             if (strpos($selector, '::text')) {
-                $extractedData[$name] = $domElements->find($selector);
+                $extractedData[$name] = $domElements->find($selector)[0];
             } else {
                 $extractedData[$name] = $domElements->first($selector)->text();
             }

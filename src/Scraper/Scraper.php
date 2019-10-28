@@ -66,7 +66,7 @@ class Scraper
      */
     public function scrapLoadedSource()
     {
-        return $this->_engine->extractData($this->source, $this->_extractors);
+        return $this->_engine->extractData($this->_source, $this->_extractors);
     }
     /**
      * Loads the scraper engine.

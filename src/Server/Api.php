@@ -58,12 +58,12 @@ class Api
         $crawler = new Crawler;
         $htmlScraper = new Scraper(new DomEngine);
 
-        $this->database->connect();
-        $this->router->respond(
+        $this->_database->connect();
+        $this->_router->respond(
             'POST',
             '/src/index.php/scrap',
             function ($request, $response) use ($crawler, $htmlScraper) {
-                $source = $crawler->buildSourceFromUrl($request->param('source'));
+                $source = $crawler->getSourceModelFromUrl($request->param('source'));
                 $extractors = json_decode($request->param('extractors'), true);
 
                 $htmlScraper->loadExtractors($extractors);
@@ -71,6 +71,6 @@ class Api
                 $response->json($htmlScraper->scrapLoadedSource());
             }
         );
-        $this->router->dispatch();
+        $this->_router->dispatch();
     }
 }

@@ -13,6 +13,8 @@
 
 namespace Another\Engines;
 
+use Another\Models\Source;
+
 /**
  * Engine contract.
  * php version 7.3.10
