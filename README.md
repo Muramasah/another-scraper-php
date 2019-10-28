@@ -4,7 +4,7 @@ This is service which allow us to interact with a scraper and a crawler using HT
 
 # Table of Contents
 
-1. [Installation] (#installation)
+1. [Installation](#installation)
 2. [Features](#features) 
 3. [Usage](#usage)
 
