@@ -4,8 +4,23 @@ This is service which allow us to interact with a scraper and a crawler using HT
 
 # Table of Contents
 
-1. [Features](#features) 
-2. [Usage](#usage)
+1. [Installation] (#installation)
+2. [Features](#features) 
+3. [Usage](#usage)
+
+
+# Installation
+
+With [Composer](https://getcomposer.org/):
+
+```bash
+git clone https://github.com/Muramasah/another-scraper-php.git
+
+cd another-scraper-php
+
+composer install
+
+```
 
 # Features
 ## Crawler
